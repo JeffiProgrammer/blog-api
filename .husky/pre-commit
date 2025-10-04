@@ -1,0 +1,13 @@
+echo "📌 Running pre commit hook"
+
+npm run lint || 
+    {
+        echo "❌ Lint check failed."
+        false
+    }
+
+npm run format || 
+    {
+        echo "❌ Format check failed."
+        false
+    }

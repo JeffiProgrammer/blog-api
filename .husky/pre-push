@@ -1,0 +1,27 @@
+echo "📌 Running pre-push hook..."
+
+# current branch
+branch_name="$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --abbrev-ref HEAD)"
+
+# allowed exact names
+exceptions="master develop"  # add 'main' if you use it
+
+# allow exact exceptions
+for exception in $exceptions; do
+  if [ "$branch_name" = "$exception" ]; then
+    echo "✅ Pushing to '$branch_name' branch is allowed."
+    exit 0
+  fi
+done
+
+# Enforce "<type>:<slug>" like "feat:your-feature-name"
+# Types: feat, fix, release, chore, hotfix, refactor, test
+if echo "$branch_name" | grep -Eq '^(feat|fix|release|chore|hotfix|refactor|test):[a-z0-9._-]+$'; then
+  echo "✅ Branch name '$branch_name' matches the allowed pattern."
+  exit 0
+else
+  echo "❌ Branch name '$branch_name' does not match the allowed patterns."
+  echo "Allowed: <type>:<slug> where <type> ∈ {feat, fix, release, chore, hotfix, refactor, test} and <slug> uses [a-z0-9._-]."
+  echo "Example: feat:your-feature-name"
+  exit 1
+fi

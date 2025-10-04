@@ -1,0 +1,7 @@
+echo "📌 Running commit-msg hook"
+
+npx commitlint --edit "$1" ||
+    {
+        echo "❌ Wrong Commit Message. Please follow the conventional commit"
+        false
+    }

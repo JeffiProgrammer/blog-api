@@ -1,0 +1,33 @@
+{
+	"name": "blog-api",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"dev": "ts-node src/index.ts",
+		"build": "tsc",
+		"start": "node dist/index.js",
+		"format": "npx @biomejs/biome format --write",
+		"lint": "npx @biomejs/biome lint --write",
+		"check": "npx @biomejs/biome check --write",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"prepare": "husky"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"type": "commonjs",
+	"devDependencies": {
+		"@biomejs/biome": "2.2.5",
+		"@commitlint/cli": "^20.1.0",
+		"@commitlint/config-conventional": "^20.0.0",
+		"@types/express": "^5.0.3",
+		"@types/node": "^24.6.2",
+		"husky": "^9.1.7",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.9.3"
+	},
+	"dependencies": {
+		"express": "^5.1.0"
+	}
+}
