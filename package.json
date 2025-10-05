@@ -3,12 +3,6 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
-	"lint-staged": {
-		"*.{ts,tsx,js,jsx,json,css,md}": [
-			"npx @biomejs/biome format --write",
-			"npx @biomejs/biome lint --write"
-		]
-	},
 	"scripts": {
 		"dev": "nodemon",
 		"build": "tsc",

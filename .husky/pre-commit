@@ -1,3 +1,17 @@
-echo "📌 Running pre commit hook"
+echo "📌 Running pre-commit hook with Biome..."
 
-npx lint-staged
+# Get staged files
+STAGED=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(ts|tsx|js|jsx|json|css|md)$')
+
+if [ -n "$STAGED" ]; then
+  echo "✨ Formatting staged files with Biome..."
+  npx biome format --write $STAGED
+
+  echo "🔍 Linting staged files with Biome..."
+  npx biome lint $STAGED
+
+  echo "📌 Re-adding fixed files..."
+  git add $STAGED
+else
+  echo "✅ No staged files to lint/format."
+fi
