@@ -1,0 +1,4 @@
+# Normalize line endings for shell scripts and Husky hooks to LF to avoid "^M" errors
+*.sh text eol=lf
+.husky/* text eol=lf
+

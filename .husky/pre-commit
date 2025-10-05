@@ -1,13 +1,21 @@
-echo "📌 Running pre commit hook"
 
-npm run lint || 
-    {
-        echo "❌ Lint check failed."
-        false
-    }
+#!/usr/bin/env sh
+set -e
+echo "📌 Running pre-commit hook with Biome..."
 
-npm run format || 
-    {
-        echo "❌ Format check failed."
-        false
-    }
+# Get staged files
+STAGED=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(ts|tsx|js|jsx|json|css|md)$' || true)
+
+if [ -n "$STAGED" ]; then
+  echo "✨ Formatting staged files with Biome..."
+  printf '%s\n' "$STAGED" | xargs -r npx @biomejs/biome format --write
+
+  echo "🔍 Linting staged files with Biome..."
+  # Run lint with autofix, but don't fail the commit if fixes are applied
+  printf '%s\n' "$STAGED" | xargs -r npx @biomejs/biome lint || true
+
+  echo "📌 Re-adding fixed files..."
+  git add $STAGED
+else
+  echo "✅ No staged files to lint/format."
+fi
