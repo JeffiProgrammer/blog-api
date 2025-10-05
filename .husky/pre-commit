@@ -1,13 +1,5 @@
+#!/bin/sh
 echo "📌 Running pre commit hook"
 
-npm run lint || 
-    {
-        echo "❌ Lint check failed."
-        false
-    }
-
-npm run format || 
-    {
-        echo "❌ Format check failed."
-        false
-    }
+. "$(dirname "$0")/_/husky.sh"
+npx lint-staged
