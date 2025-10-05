@@ -1,3 +1,5 @@
+#!/usr/bin/env sh
+set -e
 echo "📌 Running commit-msg hook"
 
 npx commitlint --edit "$1" ||

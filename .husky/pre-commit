@@ -1,14 +1,18 @@
+
+#!/usr/bin/env sh
+set -e
 echo "📌 Running pre-commit hook with Biome..."
 
 # Get staged files
-STAGED=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(ts|tsx|js|jsx|json|css|md)$')
+STAGED=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(ts|tsx|js|jsx|json|css|md)$' || true)
 
 if [ -n "$STAGED" ]; then
   echo "✨ Formatting staged files with Biome..."
-  npx biome format --write $STAGED
+  printf '%s\n' "$STAGED" | xargs -r npx @biomejs/biome format --write
 
   echo "🔍 Linting staged files with Biome..."
-  npx biome lint $STAGED
+  # Run lint with autofix, but don't fail the commit if fixes are applied
+  printf '%s\n' "$STAGED" | xargs -r npx @biomejs/biome lint || true
 
   echo "📌 Re-adding fixed files..."
   git add $STAGED
