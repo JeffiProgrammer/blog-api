@@ -6,7 +6,7 @@ echo "📌 Running pre-push hook..."
 branch_name="$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --abbrev-ref HEAD)"
 
 # allowed exact names
-exceptions="master develop main"  # add 'main' if you use it
+exceptions="master develop"  # add 'main' if you use it
 
 # allow exact exceptions
 for exception in $exceptions; do
