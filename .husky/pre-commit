@@ -1,5 +1,3 @@
-#!/bin/sh
 echo "📌 Running pre commit hook"
 
-. "$(dirname "$0")/_/husky.sh"
 npx lint-staged

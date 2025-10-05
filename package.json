@@ -5,8 +5,8 @@
 	"main": "index.js",
 	"lint-staged": {
 		"*.{ts,tsx,js,jsx,json,css,md}": [
-			"biome format --write",
-			"biome lint --write"
+			"npx @biomejs/biome format --write",
+			"npx @biomejs/biome lint --write"
 		]
 	},
 	"scripts": {
