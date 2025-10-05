@@ -1,5 +1,4 @@
 import dotenv from "dotenv";
-import type { NextFunction, Request, Response } from "express";
 import express from "express";
 import SwaggerUi from "swagger-ui-express";
 import swaggerSpec from "./config/swagger";
